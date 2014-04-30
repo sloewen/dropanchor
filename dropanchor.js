@@ -1,5 +1,6 @@
+/* jshint strict: false */
 // hereagraph, anchorgraph
-createAnchorsAndGoToThem =  function () {
+var createAnchorsAndGoToThem =  function () {
 	return {
 		init: function (tags) {
 	
@@ -17,27 +18,32 @@ createAnchorsAndGoToThem =  function () {
 				window.scrollTo(0, node[0].offsetTop);
 			} 
 		}
-	}
+	};
 	
 	function makeAnchors(tag) {
 		var anchors = document.getElementsByTagName(tag);
 			
 		for (var i = 0; anchors[i]; i++){
 			var anchorText = anchors[i].innerHTML,
-				slugifiedText = slugify(anchorText);
-			anchors[i].innerHTML = "";
-			var anchor = document.createElement('a');
-			anchor.innerHTML = anchorText;
-			anchor.setAttribute('name', slugifiedText);
-			anchor.setAttribute('href', '#' + slugifiedText);
-			anchors[i].appendChild(anchor);
+				slugifiedText = slugify(anchorText),
+				nodeList = anchors[i].getElementsByTagName('a');
+			if (nodeList.length == 0){
+				anchors[i].innerHTML = '';
+				var anchor = document.createElement('a');
+				anchor.innerHTML = anchorText;
+				anchor.setAttribute('name', slugifiedText);
+				anchor.setAttribute('href', '#' + slugifiedText);
+				anchors[i].appendChild(anchor);
+			}
+			
 		}
 	}
 }();
 
 
 function slugify(slugString) {
-	return slugString.split(' ').join('-');
+	var sluggedString = slugString.split(' ').join('-');
+	return sluggedString.toLowerCase();
 }
 
 window.onload = function () {
