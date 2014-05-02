@@ -22,6 +22,10 @@ var createAnchorsAndGoToThem =  function () {
 		}
 	};
 	
+	function hasWildCard(string) {
+		return string.indexOf('*');
+	}
+
 	function makeAnchors(tag) {
 		var anchors = document.getElementsByTagName(tag);
 			
@@ -42,9 +46,19 @@ var createAnchorsAndGoToThem =  function () {
 	}
 
 	function shouldWeDropAnchor(noList) {
-		doFunc = true;
+		var doFunc = true,
+			url = '',
+			strippedUrl = '';
 		for (var i = 0; noList[i]; i++){
-			if(window.location.href == noList[i]){
+			url = noList[i];
+			if(isInOtherString('*', url)) {
+				strippedUrl = url.substring(0, url.indexOf('*')-1);
+				if(isInOtherString(strippedUrl, window.location.href)){
+					doFunc = false;
+		            break;
+				}
+			}
+			if(isInOtherString(url, window.location.href)){
 				doFunc = false;
 	            break;
 			}
@@ -55,8 +69,18 @@ var createAnchorsAndGoToThem =  function () {
 		var sluggedString = slugString.split(' ').join('-');
 		return sluggedString.toLowerCase();
 	}
+	function isInOtherString(innerString, outerString) {
+		if (outerString.indexOf(innerString) > -1) {
+			return true;
+		} else {
+			false;
+		}
+	}
+
+
+
 }();
 
 window.onload = function () {
-	createAnchorsAndGoToThem.init(['h2', 'h3'], ['https://developer.bazaarvoice.com/','https://developer.bazaarvoice.com/apis'],); 
+	createAnchorsAndGoToThem.init(['', ''], ['','']); 
 };
