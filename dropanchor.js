@@ -82,5 +82,5 @@ var createAnchorsAndGoToThem =  function () {
 }();
 
 window.onload = function () {
-	createAnchorsAndGoToThem.init(['', ''], ['','']); 
+	createAnchorsAndGoToThem.init([], []); 
 };
