@@ -21,11 +21,9 @@ var createAnchorsAndGoToThem =  function () {
 			
 		}
 	};
-	
 	function hasWildCard(string) {
 		return string.indexOf('*');
 	}
-
 	function makeAnchors(tag) {
 		var anchors = document.getElementsByTagName(tag);
 			
@@ -44,7 +42,6 @@ var createAnchorsAndGoToThem =  function () {
 			
 		}
 	}
-
 	function shouldWeDropAnchor(noList) {
 		var doFunc = true,
 			url = '',
@@ -58,7 +55,7 @@ var createAnchorsAndGoToThem =  function () {
 		            break;
 				}
 			}
-			if(isInOtherString(url, window.location.href)){
+			if(url === window.location.href){
 				doFunc = false;
 	            break;
 			}
@@ -73,14 +70,12 @@ var createAnchorsAndGoToThem =  function () {
 		if (outerString.indexOf(innerString) > -1) {
 			return true;
 		} else {
-			false;
+			return false;
 		}
 	}
-
-
-
 }();
 
-window.onload = function () {
-	createAnchorsAndGoToThem.init([], []); 
-};
+// Example implementation
+// window.onload = function () {
+// 	createAnchorsAndGoToThem.init([], []); 
+// };
